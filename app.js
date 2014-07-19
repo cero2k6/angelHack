@@ -21,7 +21,8 @@ var io = require('socket.io').listen(server);
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.use(express.logger('dev'));
+//app.use(express.logger('dev'));
+io.set('log level', 1); 
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -62,3 +63,18 @@ io.sockets.on('connection', require('./routes/socket'));
 server.listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+var gm = require('googlemaps');
+var util = require('util');
+
+var mongoose = require('mongoose');
+  //var MONGOHQ_URL="mongodb://user:pass@server.mongohq.com:port_name/db_name"
+mongoose.connect('mongodb://test:test@kahana.mongohq.com:10063/angelHack', function(err){
+    if(err){
+      console.log(err);
+    }else{
+      console.log('Connected to Mongodb.');
+    }
+  });
+
+var pubNubService = require("./services/pubNubService");
