@@ -57,6 +57,12 @@ exports.endDestination = function(req,res){
 	res.end();
 }
 
+exports.getDestination = function(req,res){
+	DestinationService.GetDestination(function(destination){
+		res.json(destination);
+	}); 
+}
+
 exports.addLocation = function(req,res){
 	console.log(req.body);
 	var realBody = JSON.parse(Object.keys(req.body)[0].replace('\\n', '').replace("\\", ''))
