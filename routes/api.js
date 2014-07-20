@@ -61,7 +61,7 @@ exports.addDestination = function(req,res){
 		};
 
 		twilio.sendMessage({
-    		to:contact, // Any number Twilio can deliver to
+    		to:realBody.contact, // Any number Twilio can deliver to
     		from: '+15627350148', // A number you bought from Twilio and can use for outbound communication
     		body: 'You have been requested to assist this person(Mimee) home! Respond with yes to accept the invitation.' 
 
