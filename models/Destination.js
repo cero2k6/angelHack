@@ -5,7 +5,7 @@ var Schema = mongoose.Schema
 var DestinationSchema = Schema({
   latitude : Number,
   longitude : Number,
-  contact : String,
+  contact : [String],
 
 })
 
@@ -13,19 +13,23 @@ var Destination = mongoose.model("DestinationLog", DestinationSchema);
 
 DestinationModel = function(){};
 
-DestinationModel.prototype.AddDestination = function(coords, callback){
+DestinationModel.prototype.addDestination = function(destination, callback){
 
-  var Destination = new Destination({latitude : coords.latitude, longitude : coords.longitude, date :  new Date(coords.date)});
-  Destination.save(function(err){
+  var destination = new Destination(destination);
+  destination.save(function(err){
       console.log("ADDING Destination IN MODEL");
-    callback(err);
   });
 }
 
-DestinationModel.prototype.GetDestinations = function(callback){
-  Destination.findOne({}, function(err, Destination){
-    callback(null, Destinations);
+DestinationModel.prototype.GetDestination = function(callback){
+  Destination.find({}, function(err, destination){
+    console.log(destination, "A DESTINATION");
+    callback(destination[0]);
   });
+}
+
+DestinationModel.prototype.endDestination = function(){
+  Destination.find({}).remove().exec();
 }
 /*
 //Find all Classes

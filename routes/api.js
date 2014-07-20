@@ -1,8 +1,9 @@
 /*
  * Serve JSON to our AngularJS client
  */
-
- var PUBNUB = require("pubnub")
+var gm = require('googlemaps');
+ var PUBNUB = require("pubnub");
+ var request = require("request");
 var pubnub = PUBNUB({
     publish_key   : "pub-c-acddd84b-6986-471f-8515-e6b8b23f59cb",
     subscribe_key : "sub-c-b240b038-0f7a-11e4-9284-02ee2ddab7fe",
@@ -13,6 +14,8 @@ var PoliceRecordService = require("../services/PoliceRecordService");
 
 var locationLog = require("../models/Location").LocationModel;
 var stateLog = require("../models/state").stateModel;
+var destinationLog = require("../models/Destination").DestinationModel;
+var DestinationService = new destinationLog();
 var LocationService = new locationLog();
 var stateService = new stateLog();
 exports.locations = function (req, res) {
@@ -22,16 +25,34 @@ exports.locations = function (req, res) {
 };
 
 exports.addDestination = function(req,res){
-	console.log(req.body);
-	var realBody = JSON.parse(Object.keys(req.body)[0].replace('\\n', '').replace("\\", ''));
+	var realBody = /*JSON.parse(Object.keys(req.body)[0].replace('\\n', '').replace("\\", ''));*/req.body;
 	var address = realBody.address;
 	var contact = realBody.contact;
-	gm.geocode(address, function(data){
-		
+	console.log()
+	request("http://maps.google.com/maps/api/geocode/json?address=" + address
+			, function (error, response, body) {
+		body = JSON.parse(body);
+		if(body.results.length > 0){
+		var data = body.results[0];
+		console.log("DATA IS ", data);
+		lat = data.geometry.location.lat;
+		lng = data.geometry.location.lng;
+		var obj = {
+			contact : contact,
+			latitude : lat,
+			longitude : lng
+		};
+			DestinationService.addDestination(obj);
+		}
+		res.end();
 	});
 }
 
-
+exports.endDestination = function(req,res){
+	DestinationService.endDestination();
+	LocationService.Filter();
+	res.end();
+}
 
 exports.addLocation = function(req,res){
 	console.log(req.body);
@@ -43,6 +64,7 @@ exports.addLocation = function(req,res){
 			date = new Date().toString();
 		}
 		realBody = {date : date, state : state};
+		console.log("ADDING STATE");
 		stateService.Addstate(realBody);
 		res.end();
 	}else{
@@ -53,7 +75,6 @@ exports.addLocation = function(req,res){
 		PoliceRecordService.checkCoordinates(realBody);
 
 		LocationService.GetLocations(function(err, locations){
-			console.log("reporting new locations");
 	     	pubnub.publish({
          		channel: 'NewLocations',
          		message: locations

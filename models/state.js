@@ -8,15 +8,16 @@ var stateSchema = Schema({
 
 })
 
-var state = mongoose.model("stateLog", stateSchema);
+var State = mongoose.model("stateLog", stateSchema);
 
 stateModel = function(){};
 
 stateModel.prototype.Addstate = function(item, callback){
 
-  var state = new state({state : item.state, date :  new Date(item.date)});
+  var state = new State({state : item.state, date :  new Date(item.time)});
   state.save(function(err){
       console.log("ADDING state IN MODEL");
+
       callback(err);
   });
 }

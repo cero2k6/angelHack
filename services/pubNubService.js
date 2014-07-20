@@ -1,6 +1,8 @@
 var PUBNUB = require("pubnub")
 var location = require("../models/Location").LocationModel;
 
+var EmergencyService = require("../services/EmergencyService");
+var PoliceRecordService = require("../services/PoliceRecordService");
 var LocationService = new location();
 var pubnub = PUBNUB({
     publish_key   : "pub-c-acddd84b-6986-471f-8515-e6b8b23f59cb",
@@ -35,8 +37,8 @@ function handleMessage(m){
 function handleLocationMessage(message){
 	console.log("HANDLING LOCATION MESSAGE", message);
 	LocationService.AddLocation(message, function(err){
+		EmergencyService.checkPerson(message);
 		LocationService.GetLocations(function(err, locations){
-			console.log("reporting new locations", locations);
 	     	pubnub.publish({
          		channel: 'NewLocations',
          		message: locations

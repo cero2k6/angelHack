@@ -27,31 +27,19 @@ LocationModel.prototype.GetLocations = function(callback){
     callback(null, locations);
   });
 }
-/*
-//Find all Classes
-ClassModel.prototype.findAll = function(callback) {
-  Class.find({}, function (err, Class) {
-    callback( null, Class )
-  });  
-};
 
-//Find Class by ID
-ClassModel.prototype.findById = function(id, callback) {
-  Class.findById(id, function (err, Class) {
-    if (!err) {
-    callback(null, Class);
-  }
-  });
-};
+LocationModel.prototype.GetLocationsByDate = function(date, callback){
+    Location.find( //query today up to tonight
+      { date: 
+        {"$gte": new Date(date.getTime()-60000*5)}
+      }, function(err, locations){
+        callback(locations);
+      }
+    )
+}
 
-
-//Create a new Class
-ClassModel.prototype.save = function(params, callback) {
-  var Class = new Class({id : 0, name : params.name, instructor : params.instructor, group : params.group});
-  Class.save(function (err) {
-    callback();
-  });
-};
-*/
+LocationModel.prototype.Filter = function(){
+  Location.find({}).remove().exec();
+}
 
 exports.LocationModel = LocationModel;
