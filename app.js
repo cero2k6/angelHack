@@ -55,6 +55,7 @@ app.get('/partials/:name', routes.partials);
 app.get('/api/locations', api.locations);
 app.post("/api/locations", api.addLocation);
 app.post("/api/addDestination", api.addDestination);
+app.post("/api/addDestination2", api.addDestination2);
 app.post("/api/endDestination", api.endDestination);
 app.get("/api/destinations", api.getDestination);
 app.get("/api/states", api.getStates);

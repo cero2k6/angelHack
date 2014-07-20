@@ -21,6 +21,10 @@ DestinationModel.prototype.addDestination = function(destination, callback){
   });
 }
 
+DestinationModel.prototype.addContact = function(number){
+  Destination.update({}, {'$push' : {'contact' : {number : number, permission : false}}})
+}
+
 DestinationModel.prototype.GetDestination = function(callback){
   Destination.find({}, function(err, destination){
     callback(destination[0]);

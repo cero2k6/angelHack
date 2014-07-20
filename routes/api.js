@@ -77,6 +77,57 @@ exports.addDestination = function(req,res){
 	});
 }
 
+exports.addDestination2 = function(req,res){
+	var realBody = null;
+	console.log(req.body);
+	try{
+		realBody = JSON.parse(Object.keys(req.body)[0].replace('\\n', '').replace("\\", ''));
+	}catch(e){
+		realBody = req.body;
+	}
+	/*
+	var address = realBody.address;
+	var contact = [realBody.contact];
+	console.log(realBody);
+	if(contact == null){
+		contact = [contact]
+	}
+	if(address == null){
+		console.log("USING FAKE ADDRESS");
+		address = "5121 Folsom San Francisco";
+	}*/
+	var address = realBody.address;
+	var contact = realBody.contact;
+	if(address == null){
+		DestinationService.addContact(contact);
+		twilio.sendMessage({
+    		to: contact, // Any number Twilio can deliver to
+    		from: '+15627350148', // A number you bought from Twilio and can use for outbound communication
+    		body: 'You have been requested to assist this person(Mimee) home! Respond with yes to accept the invitation.' 
+
+		}, function(err, responseData) {});
+	}else{
+
+		request("http://maps.google.com/maps/api/geocode/json?address=" + address.search_term
+			, function (error, response, body) {
+			body = JSON.parse(body);
+			if(body.results.length > 0){
+				var data = body.results[0];
+				console.log("DATA IS ", data);
+				lat = data.geometry.location.lat;
+				lng = data.geometry.location.lng;
+				var obj = {
+					contact : [],
+					latitude : lat,
+					longitude : lng
+					};
+				DestinationService.addDestination(obj);
+				}
+		});
+	}
+	res.end();
+}
+
 exports.endDestination = function(req,res){
 	DestinationService.GetDestination(function(destination){
 		if(destination==null){
