@@ -19,7 +19,7 @@ var DestinationService = new destinationLog();
 var LocationService = new locationLog();
 var stateService = new stateLog();
 
-
+LocationService.Filter();
 
 exports.locations = function (req, res) {
   LocationService.GetLocations(function(err, locations){

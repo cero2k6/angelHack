@@ -28,7 +28,7 @@ exports.EvaluateState = function(state){
 }
 function detectProblems(dataset){
 	var violationCount = 0;
-	if(dataset.length > 1){
+	if(dataset.length > 3){
 		for(var i = 1; i < dataset.length; i++){
 			if(dataset[i] == dataset[i-1]){
 				violationCount++;
