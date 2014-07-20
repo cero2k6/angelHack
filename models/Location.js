@@ -14,7 +14,7 @@ LocationModel = function(){};
 
 LocationModel.prototype.AddLocation = function(coords, callback){
 
-  var location = new Location({latitude : coords.latitude, longitude : coords.longitude, coords.date});
+  var location = new Location({latitude : coords.latitude, longitude : coords.longitude, date :  coords.date});
   location.save(function(err){
       console.log("ADDING LOCATION IN MODEL");
     callback(err);

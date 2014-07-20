@@ -48,6 +48,12 @@
             	var flightPlanCoordinates = data.map(function(coord){
             		return new google.maps.LatLng(coord.latitude, coord.longitude);
             	})
+            	flightPlanCoordinates = [
+    new google.maps.LatLng(37.772323, -122.214897),
+    new google.maps.LatLng(21.291982, -157.821856),
+    new google.maps.LatLng(-18.142599, 178.431),
+    new google.maps.LatLng(-27.46758, 153.027892)
+  ];
   console.log(flightPlanCoordinates);
             	var flightPath = new google.maps.Polyline({
                 	path: flightPlanCoordinates,
