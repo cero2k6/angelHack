@@ -24,8 +24,8 @@ exports.addLocation = function(req,res){
 	var realBody = JSON.parse(Object.keys(req.body)[0].replace('\\n', '').replace("\\", '')).point;	
 	console.log(realBody);
 	LocationService.AddLocation(realBody, function(err){
-		EmergencyService.checkPerson();
-		PoliceRecordService.checkCoordinates(realBody);
+	//	EmergencyService.checkPerson();
+	//	PoliceRecordService.checkCoordinates(realBody);
 
 		LocationService.GetLocations(function(err, locations){
 			console.log("reporting new locations", locations);
@@ -34,7 +34,7 @@ exports.addLocation = function(req,res){
          		message: locations
     		 });
 		})
-		
+
 		res.json(err);
 	})
 }
