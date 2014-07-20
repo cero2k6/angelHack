@@ -29,6 +29,8 @@ app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
 
+var pubNubService = require("./services/pubNubService");
+
 // development only
 if (app.get('env') === 'development') {
   app.use(express.errorHandler());

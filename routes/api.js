@@ -15,6 +15,9 @@ exports.addLocation = function(req,res){
 	var realBody = JSON.parse(Object.keys(req.body)[0].replace('\\n', '').replace("\\", '')).point;	
 	console.log(realBody);
 	LocationService.AddLocation(realBody, function(err){
+		LocationService.GetLocations(function(err, locations){
+			pubNubService.publish(locations);
+		});
 		res.json(err);
 	})
 }

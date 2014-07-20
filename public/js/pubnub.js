@@ -47,9 +47,15 @@
          if (flightPath != null) {
              flightPath.setMap(null);
          };
-         var flightPlanCoordinates = data.map(function (coord) {
-             return new google.maps.LatLng(coord.latitude, coord.longitude);
-         })
+         
+         var flightPlanCoordinates = data
+         							.sort(function(e1,e2){
+         								return new Date(e1.date).getTime() - new Date(e2.date).getTime();
+         							})
+         							.map(function (coord) {
+             							return new google.maps.LatLng(coord.latitude, coord.longitude);
+         							})
+         console.log(flightPlanCoordinates);
          var lineSymbol = {
              path: 'M 0,-1 0,1',
              strokeOpacity: 1,
