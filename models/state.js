@@ -14,16 +14,25 @@ stateModel = function(){};
 
 stateModel.prototype.addState = function(item, callback){
 
-  var state = new State({state : item.state, date :  new Date(item.time)});
+  var state = new State({state : item.state, date :  new Date()});
+
   state.save(function(err){
       console.log("ADDING state IN MODEL");
   });
 }
 
-stateModel.prototype.Getstates = function(callback){
-  state.find({}, function(err, states){
+
+stateModel.prototype.Remove = function(callback){
+  State.find({}).remove().exec();
+}
+
+stateModel.prototype.GetStates = function(callback){
+  State.find({}, function(err, states){
+      callback(states);
   });
 }
+
+
 /*
 //Find all Classes
 ClassModel.prototype.findAll = function(callback) {

@@ -67,7 +67,7 @@
                  });
              }
          });
-         
+
          var lineSymbol = {
              path: 'M 0,-1 0,1',
              strokeOpacity: 1,
@@ -101,3 +101,64 @@
  }
 
  google.maps.event.addDomListener(window, 'load', initialize);
+var mapper = {
+	"none" : 1,
+	"not moving" : 1,
+}
+$.get("/api/states", function(states){
+	console.log(states);
+	states = states.map(function(state, i){
+		return [new Date(state.date), mapper[state.state]==undefined?0:mapper[state.state]];
+	})
+	console.log(states);
+   $('#state-chart').highcharts({
+            chart: {
+                zoomType: 'x'
+            },
+            title: {
+                text: 'State changes in Activity'
+            },
+            xAxis : {
+            	type : 'datetime'
+            },
+            yAxis: {
+                title: {
+                    text: 'Exchange rate'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    marker: {
+                        radius: 2
+                    },
+                    lineWidth: 1,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+    
+            series: [{
+                type: 'area',
+                name: 'State Changes',
+                data: 
+                    states
+                
+            }]
+        });
+
+});
+     

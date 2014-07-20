@@ -57,6 +57,7 @@ app.post("/api/locations", api.addLocation);
 app.post("/api/addDestination", api.addDestination);
 app.post("/api/endDestination", api.endDestination);
 app.get("/api/destinations", api.getDestination);
+app.get("/api/states", api.getStates);
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
 

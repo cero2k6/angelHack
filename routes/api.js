@@ -19,8 +19,6 @@ var DestinationService = new destinationLog();
 var LocationService = new locationLog();
 var stateService = new stateLog();
 
-LocationService.Filter();
-
 exports.locations = function (req, res) {
   LocationService.GetLocations(function(err, locations){
   	res.json(locations);
@@ -61,6 +59,12 @@ exports.getDestination = function(req,res){
 	DestinationService.GetDestination(function(destination){
 		res.json(destination);
 	}); 
+}
+
+exports.getStates = function(req,res){
+	stateService.GetStates(function(states){
+		res.json(states);
+	});
 }
 
 exports.addLocation = function(req,res){

@@ -9,12 +9,16 @@ block body
     <button ng-click="addDestination()">Start Destination</button>
     <button ng-click="endDestination()">End Destination </button>
 
-    div
-  div(id="map-canvas")
+  
 
+  div(id="map-canvas")
+  div(id="state-chart")
   script(src='http://code.jquery.com/jquery-2.1.1.min.js')   
   link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
   script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js')
+  script(src="http://code.highcharts.com/highcharts.js")
+  script(src="http://code.highcharts.com/modules/exporting.js")
+
   script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-CfRyI_58jK6TQ1fNQ6eGkhI3kH66_A')
   script(src='/socket.io/socket.io.js')
   script(src='bower_components/angular/angular.js')

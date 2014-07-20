@@ -33,7 +33,6 @@ function handleMessage(m){
 
 		}
 	}
-
 function handleLocationMessage(message){
 	LocationService.AddLocation(message, function(err){
 		EmergencyService.checkPerson(message);

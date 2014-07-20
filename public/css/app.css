@@ -31,4 +31,5 @@
 
 html { height: 100% }
 body { height: 100%; margin: 0; padding: 0 }
-#map-canvas { height: 80% }
+#map-canvas { height: 80% ; width:75%;}
+#state-chart{ min-width: 310px; height: 400px; margin: 0 auto}
