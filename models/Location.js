@@ -5,7 +5,9 @@ var Schema = mongoose.Schema
 var LocationSchema = Schema({
   latitude : Number,
   longitude : Number,
-  date : Date
+  date : Date,
+  situation : String,
+  
 })
 
 var Location = mongoose.model("LocationLog", LocationSchema);
