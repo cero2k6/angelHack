@@ -34,8 +34,8 @@ exports.respondToTextMessage = function(req,res){
 }
 
 exports.addDestination = function(req,res){
-//	var realBody = JSON.parse(Object.keys(req.body)[0].replace('\\n', '').replace("\\", ''));
-	var realBody = req.body;
+	var realBody = JSON.parse(Object.keys(req.body)[0].replace('\\n', '').replace("\\", ''));
+//	var realBody = req.body;
 	var address = realBody.address;
 	var contact = realBody.contact;
 	console.log()
@@ -99,7 +99,7 @@ exports.addLocation = function(req,res){
 			date = new Date().toString();
 		}
 		realBody = {date : date, state : state};
-		console.log("ADDING STATE");
+		
 		stateService.addState(realBody);
 		EmergencyService.EvaluateState(state);
 		res.end();

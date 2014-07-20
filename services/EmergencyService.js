@@ -24,6 +24,18 @@ exports.checkPerson = function(coordinates){
 }
 
 exports.EvaluateState = function(state){
+		DestinationService.GetDestination(function(destination){
+			if(destination == null){
+				return;
+			}
+			if(state == "in a car"){
+				console.log("kidnapping occurred, notifying users!");
+				notifyUser(destination.contact,  'Your friend has entered a car! Follow it at http://safewalk-ah.herokuapp.com');
+			}else if (state == "violence"){
+				console.log("violence occurred, notifying users!");
+				notifyUser(destination.contact,  'Your friend has been involved in violence! Follow it at http://safewalk-ah.herokuapp.com');				
+			}
+		});
 
 }
 function detectProblems(dataset){
