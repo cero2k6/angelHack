@@ -67,17 +67,7 @@
                  });
              }
          });
-
-         $.get("http://sanfrancisco.crimespotting.org/crime-data?format=json", function (data) {
-             data.features.forEach(function (feature) {
-                 var marker = new google.maps.Marker({
-                     position: new google.maps.LatLng(feature.geometry.coordinates[0], feature.geometry.coordinates[1]),
-                     map: map,
-                     title: 'Destination'
-                 });
-                 return feature.geometry.coordinates;
-             });
-         });
+         
          var lineSymbol = {
              path: 'M 0,-1 0,1',
              strokeOpacity: 1,
