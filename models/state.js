@@ -21,7 +21,7 @@ stateModel.prototype.addState = function(item, callback){
 }
 
 stateModel.prototype.Getstates = function(callback){
-  state.find({}, function(err, states){\
+  state.find({}, function(err, states){
   });
 }
 /*
