@@ -33,7 +33,7 @@ exports.respondToTextMessage = function(req,res){
 	res.end();
 }
 
-exports.addDestination = function(req,res){
+exports.addDestination2 = function(req,res){
 	var realBody = null;
 	console.log(req.body);
 	try{
@@ -77,7 +77,7 @@ exports.addDestination = function(req,res){
 	});
 }
 
-exports.addDestination2 = function(req,res){
+exports.addDestination = function(req,res){
 	var realBody = null;
 	console.log(req.body);
 	try{
@@ -108,7 +108,7 @@ exports.addDestination2 = function(req,res){
 		}, function(err, responseData) {});
 	}else{
 
-		request("http://maps.google.com/maps/api/geocode/json?address=" + address.search_term
+		request("http://maps.google.com/maps/api/geocode/json?address=" + address["search term"]
 			, function (error, response, body) {
 			body = JSON.parse(body);
 			if(body.results.length > 0){

@@ -5,7 +5,7 @@
 angular.module('myApp.controllers', []).
   controller('AppCtrl', function ($scope, socket, $http) {
     $scope.addDestination = function(){
-      $http.post("/api/addDestination", {address : $scope.address, contact : [$scope.contact]});
+      $http.post("/api/addDestination2", {address : $scope.address, contact : [$scope.contact]});
     }
 
     $scope.endDestination  = function(){
