@@ -27,7 +27,7 @@ exports.locations = function (req, res) {
 };
 
 exports.respondToTextMessage = function(req,res){
-	var message = req.body;
+	var message = req.body;	
 	var number = message.From.replace("+", "");
 	DestinationService.ConfirmNumber(number);
 	res.end();
@@ -68,6 +68,7 @@ exports.addDestination = function(req,res){
 exports.endDestination = function(req,res){
 	DestinationService.endDestination();
 	LocationService.Filter();
+	stateService.Remove();
 	res.end();
 }
 
