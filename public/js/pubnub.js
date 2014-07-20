@@ -25,12 +25,11 @@
 
 
  function initialize() {
-     var mapOptions = {
-         zoom: 14,
-         center: new google.maps.LatLng(37.48475458589629, -122.2034718189286),
-         mapTypeId: google.maps.MapTypeId.HYBRID
-     };
-
+  var mapOptions = {
+    zoom: 3,
+    center: new google.maps.LatLng(0, -180),
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+  };
      var map = new google.maps.Map(document.getElementById('map-canvas'),
          mapOptions);
 
@@ -38,10 +37,7 @@
 
      var flightPath = null;
      var handleLocationChanged = function (data) {
-     	console.log(data);
-     	data = data.filter(function(e, i){
-     		return i%8==0;
-     	});
+    
          if (flightPath != null) {
              flightPath.setMap(null);
          };

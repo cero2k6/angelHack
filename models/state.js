@@ -12,7 +12,7 @@ var State = mongoose.model("stateLog", stateSchema);
 
 stateModel = function(){};
 
-stateModel.prototype.Addstate = function(item, callback){
+stateModel.prototype.addState = function(item, callback){
 
   var state = new State({state : item.state, date :  new Date(item.time)});
   state.save(function(err){
@@ -24,7 +24,7 @@ stateModel.prototype.Addstate = function(item, callback){
 
 stateModel.prototype.Getstates = function(callback){
   state.find({}, function(err, states){
-    callback(null, states);
+    callback(states);
   });
 }
 /*

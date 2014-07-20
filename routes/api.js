@@ -65,7 +65,7 @@ exports.addLocation = function(req,res){
 		}
 		realBody = {date : date, state : state};
 		console.log("ADDING STATE");
-		stateService.Addstate(realBody);
+		stateService.addState(realBody);
 		res.end();
 	}else{
 		realBody = realBody.point;

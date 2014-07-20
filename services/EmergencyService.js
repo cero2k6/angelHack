@@ -7,7 +7,6 @@ var request = require("request");
 var twilio = require("twilio")('AC79502ebcbac523a3601433f2b7eb1fa8', '2611d6710b71ac4143eefb4bc9a1ecfe');
 exports.checkPerson = function(coordinates){
 	LocationService.GetLocationsByDate(new Date(coordinates.date), function(locations){
-		console.log("PREVIOUS LOCATIONS ARE...", locations);
 		DestinationService.GetDestination(function(destination){
 			var rates = locations.map(function(source){
 				return Math.pow(destination.latitude - source.latitude, 2) + Math.pow(destination.longitude - source.longitude,2);
@@ -23,7 +22,6 @@ exports.checkPerson = function(coordinates){
 
 function detectProblems(dataset){
 	var violationCount = 0;
-	console.log(dataset);
 	if(dataset.length > 1){
 		for(var i = 1; i < dataset.length; i++){
 			if(dataset[i] == dataset[i-1]){

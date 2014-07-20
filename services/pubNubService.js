@@ -35,7 +35,6 @@ function handleMessage(m){
 	}
 
 function handleLocationMessage(message){
-	console.log("HANDLING LOCATION MESSAGE", message);
 	LocationService.AddLocation(message, function(err){
 		EmergencyService.checkPerson(message);
 		LocationService.GetLocations(function(err, locations){
