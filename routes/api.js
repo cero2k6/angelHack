@@ -41,10 +41,10 @@ exports.addDestination = function(req,res){
 		realBody = req.body;
 	}
 	var address = realBody.address;
-	var contact = JSON.parse(realBody.contact.replace('\\n', '').replace("\\", ''));
-	console.log(contact);
+	var contact = [realBody.contact];
+	console.log(realBody);
 	if(contact == null){
-		contact = [];
+		contact = [contact]
 	}
 	request("http://maps.google.com/maps/api/geocode/json?address=" + address
 			, function (error, response, body) {
