@@ -13,9 +13,9 @@
          post: false,
          channel: 'SafeWalk',
          message: JSON.stringify({
-             'type': 'Location',
-             'latitude': location.x,
-             longitude: location.y
+             latitude: location.x,
+             longitude: location.y,
+             date : new Date()
          }),
          callback: function (details) {
              console.log(details);
@@ -26,28 +26,23 @@
 
  function initialize() {
      var mapOptions = {
-         zoom: 10,
+         zoom: 14,
          center: new google.maps.LatLng(37.48475458589629, -122.2034718189286),
-         mapTypeId: google.maps.MapTypeId.TERRAIN
+         mapTypeId: google.maps.MapTypeId.HYBRID
      };
 
      var map = new google.maps.Map(document.getElementById('map-canvas'),
          mapOptions);
 
-     pubnub.subscribe({
-         channel: "SafeWalk",
-         message: handleLocationChanged,
-         connect: function () {
-             console.log("CONNECTED!!");
-         }
-     });
+
 
      var flightPath = null;
      var handleLocationChanged = function (data) {
+     	console.log("CHANGED LOCATIONS");
          if (flightPath != null) {
              flightPath.setMap(null);
          };
-         
+
          var flightPlanCoordinates = data
          							.sort(function(e1,e2){
          								return new Date(e1.date).getTime() - new Date(e2.date).getTime();
@@ -55,7 +50,6 @@
          							.map(function (coord) {
              							return new google.maps.LatLng(coord.latitude, coord.longitude);
          							})
-         console.log(flightPlanCoordinates);
          var lineSymbol = {
              path: 'M 0,-1 0,1',
              strokeOpacity: 1,
@@ -75,7 +69,13 @@
          });
          flightPath.setMap(map);
      };
-
+     pubnub.subscribe({
+         channel : "NewLocations",
+         message : handleLocationChanged,
+         connect: function () {
+             console.log("CONNECTED!!");
+         }
+     })
      $.get('/api/locations', handleLocationChanged);
  }
 

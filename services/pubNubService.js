@@ -1,6 +1,6 @@
 var PUBNUB = require("pubnub")
 var location = require("../models/Location").LocationModel;
-console.log(location);
+
 var LocationService = new location();
 var pubnub = PUBNUB({
     publish_key   : "pub-c-acddd84b-6986-471f-8515-e6b8b23f59cb",
@@ -16,30 +16,33 @@ pubnub.subscribe({
     }
  })
 
+exports.publish = function(message){
+	     pubnub.publish({
+         channel: 'SafeWalk',
+         message: message
+     });
+}
+
 function handleMessage(m){
-	var message = JSON.parse(m);
-	switch(message.type){
-		case "Location" : 
-						handleLocationMessage(message);
-						break;
+		try{
+			var message = JSON.parse(m);
+			handleLocationMessage(message);
+		}catch(e){
+
 		}
 	}
 
 function handleLocationMessage(message){
 	console.log("HANDLING LOCATION MESSAGE", message);
 	LocationService.AddLocation(message, function(err){
-		console.log(err);
+		LocationService.GetLocations(function(err, locations){
+			console.log("reporting new locations", locations);
+	     	pubnub.publish({
+         		channel: 'NewLocations',
+         		message: locations
+    		 });
+		})
 	});
 
 }
 
-exports.publish = function(message){
-	     pubnub.publish({
-         post: false,
-         channel: 'SafeWalk',
-         message: message,
-         callback: function (details) {
-             console.log(details);
-         }
-     });
-}

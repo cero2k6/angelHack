@@ -12,4 +12,8 @@ module.exports = function (socket) {
       time: (new Date()).toString()
     });
   }, 1000);
+
+  this.sendNewPlaces = function(places){
+  	socket.emit("places", places)
+  }
 };

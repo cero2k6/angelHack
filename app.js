@@ -12,6 +12,7 @@ var express = require('express'),
 var app = module.exports = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
+var twilio = require("twilio")('AC79502ebcbac523a3601433f2b7eb1fa8', '2611d6710b71ac4143eefb4bc9a1ecfe');
 
 /**
  * Configuration
