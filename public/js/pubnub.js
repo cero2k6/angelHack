@@ -33,7 +33,16 @@
      var map = new google.maps.Map(document.getElementById('map-canvas'),
          mapOptions);
 
-
+         $.get('/api/destinations', function (destination) {
+             console.log(destination);
+             if (destination != null) {
+                 var marker = new google.maps.Marker({
+                     position: new google.maps.LatLng(destination.latitude, destination.longitude),
+                     map: map,
+                     title: 'Destination'
+                 });
+             }
+         });
 
      var flightPath = null;
      var handleLocationChanged = function (data) {
@@ -57,16 +66,7 @@
                  title: 'Start Position'
              });
          }
-         $.get('/api/destinations', function (destination) {
-             console.log(destination);
-             if (destination != null) {
-                 var marker = new google.maps.Marker({
-                     position: new google.maps.LatLng(destination.latitude, destination.longitude),
-                     map: map,
-                     title: 'Destination'
-                 });
-             }
-         });
+
 
          var lineSymbol = {
              path: 'M 0,-1 0,1',
