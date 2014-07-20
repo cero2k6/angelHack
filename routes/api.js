@@ -42,7 +42,10 @@ exports.addDestination = function(req,res){
 	}
 	var address = realBody.address;
 	var contact = realBody.contact;
-	console.log()
+	console.log(realBody);
+	if(contact == null){
+		contact = [];
+	}
 	request("http://maps.google.com/maps/api/geocode/json?address=" + address
 			, function (error, response, body) {
 		body = JSON.parse(body);
