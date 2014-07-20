@@ -8,6 +8,9 @@ var twilio = require("twilio")('AC79502ebcbac523a3601433f2b7eb1fa8', '2611d6710b
 exports.checkPerson = function(coordinates){
 	LocationService.GetLocationsByDate(new Date(coordinates.date), function(locations){
 		DestinationService.GetDestination(function(destination){
+			if(destination == null){
+				return;
+			}
 			var rates = locations.map(function(source){
 				return Math.pow(destination.latitude - source.latitude, 2) + Math.pow(destination.longitude - source.longitude,2);
 			});
@@ -20,6 +23,9 @@ exports.checkPerson = function(coordinates){
 	});
 }
 
+exports.EvaluateState = function(state){
+
+}
 function detectProblems(dataset){
 	var violationCount = 0;
 	if(dataset.length > 1){

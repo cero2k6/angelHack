@@ -18,6 +18,9 @@ var destinationLog = require("../models/Destination").DestinationModel;
 var DestinationService = new destinationLog();
 var LocationService = new locationLog();
 var stateService = new stateLog();
+
+
+
 exports.locations = function (req, res) {
   LocationService.GetLocations(function(err, locations){
   	res.json(locations);
@@ -66,6 +69,7 @@ exports.addLocation = function(req,res){
 		realBody = {date : date, state : state};
 		console.log("ADDING STATE");
 		stateService.addState(realBody);
+		EmergencyService.EvaluateState(state);
 		res.end();
 	}else{
 		realBody = realBody.point;

@@ -1,15 +1,16 @@
 extends layout
 
 block body
+  h1 Web Display Panel for SafeWalk
   div(ng-controller='AppCtrl')
-    h2 Hello {{name}}
     div(ng-view)
 
     div
-      | Angular Socket.io seed app: v
-      span(app-version)
-  div(id="map-canvas") 
+  div(id="map-canvas")
+
   script(src='http://code.jquery.com/jquery-2.1.1.min.js')   
+  link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
+  script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js')
   script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-CfRyI_58jK6TQ1fNQ6eGkhI3kH66_A')
   script(src='/socket.io/socket.io.js')
   script(src='bower_components/angular/angular.js')

@@ -49,6 +49,9 @@
          							.map(function (coord) {
              							return new google.maps.LatLng(coord.latitude, coord.longitude);
          							})
+        if(data.length > 0){
+        	map.setCenter(new google.maps.LatLng(data[0].latitude, data[0].longitude));
+    	}
          var lineSymbol = {
              path: 'M 0,-1 0,1',
              strokeOpacity: 1,
