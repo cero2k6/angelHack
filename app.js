@@ -24,6 +24,7 @@ app.set('view engine', 'jade');
 //app.use(express.logger('dev'));
 io.set('log level', 1); 
 app.use(express.bodyParser());
+app.use(express.json());   
 app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
@@ -48,7 +49,8 @@ app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
 
 // JSON API
-app.get('/api/name', api.name);
+app.get('/api/locations', api.locations);
+app.post("/api/locations", api.addLocation);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);

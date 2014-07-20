@@ -3,19 +3,13 @@ extends layout
 block body
   div(ng-controller='AppCtrl')
     h2 Hello {{name}}
-    ul.menu
-      li
-        a(href='view1') view1
-      li
-        a(href='view2') view2
-
     div(ng-view)
 
     div
       | Angular Socket.io seed app: v
       span(app-version)
-
-  script(src='http://cdn.pubnub.com/pubnub.min.js')
+  div(id="map-canvas")    
+  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-CfRyI_58jK6TQ1fNQ6eGkhI3kH66_A')
   script(src='/socket.io/socket.io.js')
   script(src='bower_components/angular/angular.js')
   script(src='bower_components/angular-route/angular-route.js')
@@ -25,4 +19,6 @@ block body
   script(src='js/controllers.js')
   script(src='js/filters.js')
   script(src='js/directives.js')
+  script(src='http://cdn.pubnub.com/pubnub.min.js')
   script(src='js/pubnub.js')
+  

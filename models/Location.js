@@ -13,8 +13,10 @@ var Location = mongoose.model("LocationLog", LocationSchema);
 LocationModel = function(){};
 
 LocationModel.prototype.AddLocation = function(coords, callback){
+
   var location = new Location({latitude : coords.latitude, longitude : coords.longitude, date : Date.now()});
   location.save(function(err){
+      console.log("ADDING LOCATION IN MODEL");
     callback(err);
   });
 }
