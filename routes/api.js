@@ -19,7 +19,6 @@ var destinationLog = require("../models/Destination").DestinationModel;
 var DestinationService = new destinationLog();
 var LocationService = new locationLog();
 var stateService = new stateLog();
-var temporaryContact = null;
 
 exports.locations = function (req, res) {
   LocationService.GetLocations(function(err, locations){
@@ -100,13 +99,13 @@ exports.addDestination = function(req,res){
 	var address = realBody.address;
 	var contact = realBody.contact;
 	if(address == null){
+		DestinationService.addContact(contact);
 		twilio.sendMessage({
     		to: contact, // Any number Twilio can deliver to
     		from: '+15627350148', // A number you bought from Twilio and can use for outbound communication
     		body: 'You have been requested to assist this person(Mimee) home! Respond with yes to accept the invitation.' 
 
 		}, function(err, responseData) {});
-		temporaryContact = contact;
 	}else{
 
 		request("http://maps.google.com/maps/api/geocode/json?address=" + address["search term"]
@@ -125,9 +124,6 @@ exports.addDestination = function(req,res){
 				DestinationService.addDestination(obj);
 				}
 		});
-		if(temporaryContact != null){
-			DestinationService.addContact(temporaryContact);
-		}
 	}
 	res.end();
 }
