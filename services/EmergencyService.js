@@ -49,12 +49,14 @@ function detectProblems(dataset){
 
 function notifyUser(contacts){
 	contacts.forEach(function(number){
-		twilio.sendMessage({
-    	to:'+17148673981', // Any number Twilio can deliver to
-    	from: '+15627350148', // A number you bought from Twilio and can use for outbound communication
-    	body: 'emergency message' // body of the SMS message
+		if(number.permission){
+			twilio.sendMessage({
+    		to:number.number, // Any number Twilio can deliver to
+    		from: '+15627350148', // A number you bought from Twilio and can use for outbound communication
+    		body: 'An emergency has occurred! Follow it at http://safewalk-ah.herokuapp.com' // body of the SMS message
 
-		}, function(err, responseData) {});
+			}, function(err, responseData) {});
+		}
 	})
 
 }

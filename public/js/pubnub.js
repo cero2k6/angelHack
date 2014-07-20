@@ -109,7 +109,15 @@ var mapper = {
 }
 $.get("/api/states", function(states){
 	console.log(states);
-	states = states.map(function(state, i){
+	states = states
+	        .sort(function (e1, e2) {
+                 return new Date(e2.date).getTime() - new Date(e1.date).getTime();
+             })
+	        .filter(function(e1){
+	        	return new Date(e1.date).getTime()%2==0
+	        })
+	        .slice(0,30)
+			.map(function(state, i){
 		return [new Date(state.date), mapper[state.state]==undefined?0:mapper[state.state]];
 	})
 	console.log(states);

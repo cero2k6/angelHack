@@ -9,6 +9,7 @@ var pubnub = PUBNUB({
     subscribe_key : "sub-c-b240b038-0f7a-11e4-9284-02ee2ddab7fe",
     //cipher_key : "demo"
 });
+var twilio = require("twilio")('AC79502ebcbac523a3601433f2b7eb1fa8', '2611d6710b71ac4143eefb4bc9a1ecfe');
 var EmergencyService = require("../services/EmergencyService");
 var PoliceRecordService = require("../services/PoliceRecordService");
 
@@ -25,6 +26,10 @@ exports.locations = function (req, res) {
   });
 };
 
+exports.respondToTextMessage = function(req,res){
+	console.log(req.body);
+}
+
 exports.addDestination = function(req,res){
 	var realBody = JSON.parse(Object.keys(req.body)[0].replace('\\n', '').replace("\\", ''));
 	var address = realBody.address;
@@ -39,10 +44,17 @@ exports.addDestination = function(req,res){
 		lat = data.geometry.location.lat;
 		lng = data.geometry.location.lng;
 		var obj = {
-			contact : contact,
+			contact : {number : contact, permission : false},
 			latitude : lat,
 			longitude : lng
 		};
+
+		twilio.sendMessage({
+    		to:contact, // Any number Twilio can deliver to
+    		from: '+15627350148', // A number you bought from Twilio and can use for outbound communication
+    		body: 'You have been requested to assist this person(Mimee) home! Respond with yes to accept the invitation.' 
+
+		}, function(err, responseData) {});
 			DestinationService.addDestination(obj);
 		}
 		res.end();

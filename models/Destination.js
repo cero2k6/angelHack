@@ -5,7 +5,7 @@ var Schema = mongoose.Schema
 var DestinationSchema = Schema({
   latitude : Number,
   longitude : Number,
-  contact : [String],
+  contact : [{number : String, permission : Boolean}],
 
 })
 
