@@ -28,6 +28,9 @@ exports.locations = function (req, res) {
 
 exports.respondToTextMessage = function(req,res){
 	console.log(req.body);
+	var message = client.sms.messages.get(req.body.SmsMessageSid);
+	console.log(message);
+	res.end();
 }
 
 exports.addDestination = function(req,res){
