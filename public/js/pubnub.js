@@ -36,14 +36,31 @@
 
      pubnub.subscribe({
          channel: "SafeWalk",
-         message: handleMessage,
+         message: handleLocationChanged,
          connect: function () {
              console.log("CONNECTED!!");
          }
-     })
-     var flightPath = null;
+     });
 
-     $.get('/api/locations', );
+     var flightPath = null;
+     var handleLocationChanged = function (data) {
+     	if(flightPath != null){
+     		flightPath.setMap(null);
+     	};
+         var flightPlanCoordinates = data.map(function (coord) {
+             return new google.maps.LatLng(coord.latitude, coord.longitude);
+         })
+         flightPath = new google.maps.Polyline({
+             path: flightPlanCoordinates,
+             geodesic: true,
+             strokeColor: '#FF0000',
+             strokeOpacity: 1.0,
+             strokeWeight: 2
+         });
+         flightPath.setMap(map);
+     };
+
+     $.get('/api/locations', handleLocationChanged );
  }
 
  google.maps.event.addDomListener(window, 'load', initialize);
