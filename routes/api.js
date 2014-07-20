@@ -11,7 +11,7 @@ exports.locations = function (req, res) {
 };
 
 exports.addLocation = function(req,res){
-	
+	console.log(req.body);
 	LocationService.AddLocation(req.body, function(err){
 		res.json(err);
 	})
