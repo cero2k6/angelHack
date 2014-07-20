@@ -27,8 +27,7 @@ exports.locations = function (req, res) {
 };
 
 exports.respondToTextMessage = function(req,res){
-	console.log(req.body);
-	var message = client.sms.messages.get(req.body.SmsMessageSid);
+	var message = req.body;
 	var number = message.From.replace("+", "");
 	DestinationService.ConfirmNumber(number);
 	res.end();
