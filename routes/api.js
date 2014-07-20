@@ -28,8 +28,8 @@ exports.addLocation = function(req,res){
 		realBody = realBody.point;
 		console.log(realBody);
 		LocationService.AddLocation(realBody, function(err){
-		//	EmergencyService.checkPerson();
-		//	PoliceRecordService.checkCoordinates(realBody);
+		EmergencyService.checkPerson(realBody);
+		PoliceRecordService.checkCoordinates(realBody);
 
 		LocationService.GetLocations(function(err, locations){
 			console.log("reporting new locations", locations);
