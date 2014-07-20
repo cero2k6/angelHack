@@ -17,7 +17,7 @@ exports.checkPerson = function(coordinates){
 			var noViolations = detectProblems(rates);
 			if(noViolations){
 				console.log("violation occurred, notifying users!");
-				notifyUser(destination.contact);
+				notifyUser(destination.contact,  'An emergency has occurred! Follow it at http://safewalk-ah.herokuapp.com');
 			}
 		});
 	});
@@ -47,16 +47,19 @@ function detectProblems(dataset){
 	return violationCount < dataset.length;
 }
 
-function notifyUser(contacts){
+function notifyUser(contacts,message){
 	contacts.forEach(function(number){
+		console.log("SENDING SMS TO " + number);
 		if(number.permission){
 			twilio.sendMessage({
     		to:number.number, // Any number Twilio can deliver to
     		from: '+15627350148', // A number you bought from Twilio and can use for outbound communication
-    		body: 'An emergency has occurred! Follow it at http://safewalk-ah.herokuapp.com' // body of the SMS message
+    		body:message // body of the SMS message
 
 			}, function(err, responseData) {});
 		}
 	})
 
 }
+
+exports.notifyUsers = notifyUser;

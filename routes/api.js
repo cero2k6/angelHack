@@ -66,6 +66,11 @@ exports.addDestination = function(req,res){
 }
 
 exports.endDestination = function(req,res){
+	DestinationService.GetDestination(function(destination){
+		console.log("ENDING THE DESTINATION", destination);
+		EmergencyService.notifyUsers(destination.contact, "The user you were following has finished his path!");
+	}); 
+	
 	DestinationService.endDestination();
 	LocationService.Filter();
 	stateService.Remove();
