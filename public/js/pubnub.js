@@ -102,8 +102,10 @@
 
  google.maps.event.addDomListener(window, 'load', initialize);
 var mapper = {
-	"none" : 1,
-	"not moving" : 1,
+	"in a car" : 1,
+	"running" : .5,
+	"none" : .25,
+	"not moving" : 0,
 }
 $.get("/api/states", function(states){
 	console.log(states);

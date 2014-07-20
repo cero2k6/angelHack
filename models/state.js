@@ -17,7 +17,7 @@ stateModel.prototype.addState = function(item, callback){
   var state = new State({state : item.state, date :  new Date()});
 
   state.save(function(err){
-      console.log("ADDING state IN MODEL");
+      console.log("ADDING state IN MODEL", err);
   });
 }
 
