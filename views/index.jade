@@ -4,6 +4,10 @@ block body
   h1 Web Display Panel for SafeWalk
   div(ng-controller='AppCtrl')
     div(ng-view)
+    <input ng-model="address" placeholder="address here"></input>
+    <input ng-model="contact" placeholder ="contact here"></input>
+    <button ng-click="addDestination()">Start Destination</button>
+    <button ng-click="endDestination()">End Destination </button>
 
     div
   div(id="map-canvas")
