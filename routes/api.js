@@ -34,7 +34,8 @@ exports.respondToTextMessage = function(req,res){
 }
 
 exports.addDestination = function(req,res){
-	var realBody = null
+	var realBody = null;
+	console.log(req.body);
 	try{
 		realBody = JSON.parse(Object.keys(req.body)[0].replace('\\n', '').replace("\\", ''));
 	}catch(e){
@@ -45,6 +46,10 @@ exports.addDestination = function(req,res){
 	console.log(realBody);
 	if(contact == null){
 		contact = [contact]
+	}
+	if(address == null){
+		console.log("USING FAKE ADDRESS");
+		address = "5121 Folsom San Francisco";
 	}
 	request("http://maps.google.com/maps/api/geocode/json?address=" + address
 			, function (error, response, body) {
