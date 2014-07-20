@@ -32,3 +32,32 @@
          }
      });
  };
+
+
+        function initialize() {
+            var mapOptions = {
+                zoom: 3,
+                center: new google.maps.LatLng(0, -180),
+                mapTypeId: google.maps.MapTypeId.TERRAIN
+            };
+
+            var map = new google.maps.Map(document.getElementById('map-canvas'),
+                mapOptions);
+
+            $.get('/api/locations', function(data){
+            	var flightPlanCoordinates = data.map(function(coord){
+            		return new google.maps.LatLng(coord.latitude, coord.longitude);
+            	})
+  console.log(flightPlanCoordinates);
+            	var flightPath = new google.maps.Polyline({
+                	path: flightPlanCoordinates,
+                	geodesic: true,
+               	 	strokeColor: '#FF0000',
+                	strokeOpacity: 1.0,
+                	strokeWeight: 2
+            	});
+            	flightPath.setMap(map);
+            });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
