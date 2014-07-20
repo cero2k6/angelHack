@@ -32,3 +32,14 @@ function handleLocationMessage(message){
 	});
 
 }
+
+exports.publish = function(message){
+	     pubnub.publish({
+         post: false,
+         channel: 'SafeWalk',
+         message: message,
+         callback: function (details) {
+             console.log(details);
+         }
+     });
+}
