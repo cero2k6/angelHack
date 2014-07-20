@@ -26,7 +26,7 @@ exports.locations = function (req, res) {
 };
 
 exports.addDestination = function(req,res){
-	var realBody = /*JSON.parse(Object.keys(req.body)[0].replace('\\n', '').replace("\\", ''));*/req.body;
+	var realBody = JSON.parse(Object.keys(req.body)[0].replace('\\n', '').replace("\\", ''));
 	var address = realBody.address;
 	var contact = realBody.contact;
 	console.log()
