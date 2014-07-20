@@ -22,6 +22,9 @@ EmergencyService.checkPerson();
 exports.addLocation = function(req,res){
 	console.log(req.body);
 	var realBody = JSON.parse(Object.keys(req.body)[0].replace('\\n', '').replace("\\", '')).point;	
+	if(point == null){
+		res.end();
+	}
 	console.log(realBody);
 	LocationService.AddLocation(realBody, function(err){
 	//	EmergencyService.checkPerson();

@@ -9,6 +9,7 @@
     "pubnub" : "*",
     "mongodb": "*",
     "mongoose": "*",
-    "googlemaps" : "*"
+    "googlemaps" : "*",
+    "twilio" : "*"
   }
 }
