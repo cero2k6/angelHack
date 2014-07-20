@@ -40,7 +40,7 @@
      var handleLocationChanged = function (data) {
      	console.log(data);
      	data = data.filter(function(e, i){
-     		return i%25==0;
+     		return i%5==0;
      	});
          if (flightPath != null) {
              flightPath.setMap(null);
