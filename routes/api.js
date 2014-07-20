@@ -41,8 +41,8 @@ exports.addDestination = function(req,res){
 		realBody = req.body;
 	}
 	var address = realBody.address;
-	var contact = realBody.contact;
-	console.log(realBody);
+	var contact = JSON.parse(realBody.contact.replace('\\n', '').replace("\\", ''));
+	console.log(contact);
 	if(contact == null){
 		contact = [];
 	}
