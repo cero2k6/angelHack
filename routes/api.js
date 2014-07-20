@@ -48,7 +48,7 @@ exports.addDestination = function(req,res){
 		lat = data.geometry.location.lat;
 		lng = data.geometry.location.lng;
 		var obj = {
-			contact : {number : contact, permission : false},
+			contact : contact.map(function(e){return  {number : e, permission : false} }),
 			latitude : lat,
 			longitude : lng
 		};
