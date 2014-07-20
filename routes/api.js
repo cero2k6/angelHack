@@ -12,17 +12,38 @@ var EmergencyService = require("../services/EmergencyService");
 var PoliceRecordService = require("../services/PoliceRecordService");
 
 var locationLog = require("../models/Location").LocationModel;
+var stateLog = require("../models/state").stateModel;
 var LocationService = new locationLog();
+var stateService = new stateLog();
 exports.locations = function (req, res) {
   LocationService.GetLocations(function(err, locations){
   	res.json(locations);
   });
 };
-EmergencyService.checkPerson();
+
+exports.addDestination = function(req,res){
+	console.log(req.body);
+	var realBody = JSON.parse(Object.keys(req.body)[0].replace('\\n', '').replace("\\", ''));
+	var address = realBody.address;
+	var contact = realBody.contact;
+	gm.geocode(address, function(data){
+		
+	});
+}
+
+
+
 exports.addLocation = function(req,res){
 	console.log(req.body);
 	var realBody = JSON.parse(Object.keys(req.body)[0].replace('\\n', '').replace("\\", ''))
 	if(realBody.point == null){
+		state = realBody.state;
+		date = realBody.date;
+		if(date == null){
+			date = new Date().toString();
+		}
+		realBody = {date : date, state : state};
+		stateService.Addstate(realBody);
 		res.end();
 	}else{
 		realBody = realBody.point;

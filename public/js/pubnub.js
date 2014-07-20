@@ -80,6 +80,9 @@
          }
      });
      $.get('/api/locations', handleLocationChanged);
+     setInterval(function(){
+     	$.get('/api/locations', handleLocationChanged);
+     },50000);
  }
 
  google.maps.event.addDomListener(window, 'load', initialize);

@@ -2,29 +2,29 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema
   , ObjectId = Schema.ObjectId;
 
-var LocationSchema = Schema({
+var DestinationSchema = Schema({
   latitude : Number,
   longitude : Number,
-  date : Date,
+  contact : String,
 
 })
 
-var Location = mongoose.model("LocationLog", LocationSchema);
+var Destination = mongoose.model("DestinationLog", DestinationSchema);
 
-LocationModel = function(){};
+DestinationModel = function(){};
 
-LocationModel.prototype.AddLocation = function(coords, callback){
+DestinationModel.prototype.AddDestination = function(coords, callback){
 
-  var location = new Location({latitude : coords.latitude, longitude : coords.longitude, date :  new Date(coords.date)});
-  location.save(function(err){
-      console.log("ADDING LOCATION IN MODEL");
+  var Destination = new Destination({latitude : coords.latitude, longitude : coords.longitude, date :  new Date(coords.date)});
+  Destination.save(function(err){
+      console.log("ADDING Destination IN MODEL");
     callback(err);
   });
 }
 
-LocationModel.prototype.GetLocations = function(callback){
-  Location.find({}, function(err, locations){
-    callback(null, locations);
+DestinationModel.prototype.GetDestinations = function(callback){
+  Destination.findOne({}, function(err, Destination){
+    callback(null, Destinations);
   });
 }
 /*
@@ -54,4 +54,4 @@ ClassModel.prototype.save = function(params, callback) {
 };
 */
 
-exports.LocationModel = LocationModel;
+exports.DestinationModel = DestinationModel;

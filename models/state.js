@@ -2,29 +2,28 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema
   , ObjectId = Schema.ObjectId;
 
-var LocationSchema = Schema({
-  latitude : Number,
-  longitude : Number,
+var stateSchema = Schema({
   date : Date,
+  state : String,
 
 })
 
-var Location = mongoose.model("LocationLog", LocationSchema);
+var state = mongoose.model("stateLog", stateSchema);
 
-LocationModel = function(){};
+stateModel = function(){};
 
-LocationModel.prototype.AddLocation = function(coords, callback){
+stateModel.prototype.Addstate = function(item, callback){
 
-  var location = new Location({latitude : coords.latitude, longitude : coords.longitude, date :  new Date(coords.date)});
-  location.save(function(err){
-      console.log("ADDING LOCATION IN MODEL");
-    callback(err);
+  var state = new state({state : item.state, date :  new Date(item.date)});
+  state.save(function(err){
+      console.log("ADDING state IN MODEL");
+      callback(err);
   });
 }
 
-LocationModel.prototype.GetLocations = function(callback){
-  Location.find({}, function(err, locations){
-    callback(null, locations);
+stateModel.prototype.Getstates = function(callback){
+  state.find({}, function(err, states){
+    callback(null, states);
   });
 }
 /*
@@ -54,4 +53,4 @@ ClassModel.prototype.save = function(params, callback) {
 };
 */
 
-exports.LocationModel = LocationModel;
+exports.stateModel = stateModel;
