@@ -23,8 +23,20 @@ DestinationModel.prototype.addDestination = function(destination, callback){
 
 DestinationModel.prototype.GetDestination = function(callback){
   Destination.find({}, function(err, destination){
-    console.log(destination, "A DESTINATION");
     callback(destination[0]);
+  });
+}
+
+DestinationModel.prototype.ConfirmNumber = function(number, callback){
+  Destination.findOne({}, function(err, destination){
+      for(var i = 0; i < destination.contact.length; i++){
+        if(destination.contact[i].number == number){
+          destination.contact[i].permission = true;
+          destination.markModified('contact');
+          destination.save();
+          console.log("confirmed number " + number);
+        }
+      }
   });
 }
 
