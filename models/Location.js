@@ -7,7 +7,7 @@ var LocationSchema = Schema({
   longitude : Number,
   date : Date,
   situation : String,
-  
+
 })
 
 var Location = mongoose.model("LocationLog", LocationSchema);
@@ -16,7 +16,7 @@ LocationModel = function(){};
 
 LocationModel.prototype.AddLocation = function(coords, callback){
 
-  var location = new Location({latitude : coords.latitude, longitude : coords.longitude, date :  coords.date});
+  var location = new Location({latitude : coords.latitude, longitude : coords.longitude, date :  new Date(coords.date)});
   location.save(function(err){
       console.log("ADDING LOCATION IN MODEL");
     callback(err);
