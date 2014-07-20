@@ -40,7 +40,7 @@
      var handleLocationChanged = function (data) {
      	console.log(data);
      	data = data.filter(function(e, i){
-     		return i%5==0;
+     		return i%8==0;
      	});
          if (flightPath != null) {
              flightPath.setMap(null);
@@ -72,13 +72,13 @@
          });
          flightPath.setMap(map);
      };
-  /*   pubnub.subscribe({
+    pubnub.subscribe({
          channel : "NewLocations",
          message : handleLocationChanged,
          connect: function () {
              console.log("CONNECTED!!");
          }
-     })*/
+     });
      $.get('/api/locations', handleLocationChanged);
  }
 

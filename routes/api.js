@@ -32,7 +32,7 @@ exports.addLocation = function(req,res){
 		PoliceRecordService.checkCoordinates(realBody);
 
 		LocationService.GetLocations(function(err, locations){
-			console.log("reporting new locations", locations);
+			console.log("reporting new locations");
 	     	pubnub.publish({
          		channel: 'NewLocations',
          		message: locations
